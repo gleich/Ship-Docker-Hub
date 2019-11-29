@@ -1,18 +1,19 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
-	logErr
-	"os"
 	"fmt"
+	"github.com/Matt-Gleich/logErr"
+	"os"
+	"io/ioutil"
 )
 
 func main() {
 	fmt.Println("Logging into docker hub as user:")
 	file, err := os.Open("dockerUsername.txt")
-	if err != nil {
-		fmt.Println("Make sure that the dockerUsername.txt file in the volume")
-		log.Error("dockerUsername.txt not found. Make sure it is in volume")
-	}
-	fmt.Println(file)
+	logErr.Log(err, "Make sure that the dockerUsername.txt file is in the volume")
+	defer file.Close()
+	b, err := ioutil.ReadAll(file)
+	logErr.Log(err, "")
+	fmt.Println(string(b))
+	loginCmdexec.Command("docker", "--version")
 }
