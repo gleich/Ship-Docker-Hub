@@ -1,19 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"github.com/Matt-Gleich/logErr"
-	"os"
-	"io/ioutil"
+	"github.com/Matt-Gleich/Ship-Docker-Hub/dockerhub"
 )
 
 func main() {
-	fmt.Println("Logging into docker hub as user:")
-	file, err := os.Open("dockerUsername.txt")
-	logErr.Log(err, "Make sure that the dockerUsername.txt file is in the volume")
-	defer file.Close()
-	b, err := ioutil.ReadAll(file)
-	logErr.Log(err, "")
-	fmt.Println(string(b))
-	loginCmdexec.Command("docker", "--version")
+	dockerhub.ListOfContainers("mattgleich")
 }
